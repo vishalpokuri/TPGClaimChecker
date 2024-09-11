@@ -1,5 +1,6 @@
 import Button from "./button";
 import { useState } from "react";
+import Namecollection from "../components/namecollector";
 import { Input } from "@/components/ui/input";
 export default function FormSub() {
   const [inputVal, setInputVal] = useState("");
@@ -112,34 +113,32 @@ export default function FormSub() {
     "9Jcd3gzNzuK6pge2Ei3V4Fop8KvCRxP5UQ1YWTyqfbgu",
   ];
   const data = [week1, week2, week3, week4, week5];
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (inputVal.length != 44) {
       setResult({
         msg: `Invalid Wallet Address`,
         flag: true,
       });
-    } else {
-      let count = 0;
-      const flag = week5.includes(inputVal);
-      data.map((item) => {
-        if (item.includes(inputVal)) {
-          count++;
-        }
-      });
-
-      if (count >= 2 && flag) {
-        setResult({
-          msg: `${inputVal.slice(0, 7)}.... is Eligible, Congrats 🎉🎉`,
-          flag: true,
-        });
-      } else {
-        setResult({
-          msg: `Unfortunately, you are not eligible for the Certificate 🥲🥹`,
-          flag: false,
-        });
-      }
+      return;
     }
+
+    let count = 0;
+    const flag = week5.includes(inputVal);
+    data.forEach((item) => {
+      if (item.includes(inputVal)) {
+        count++;
+      }
+    });
+
+    const eligibilityResult = count >= 2 && flag;
+    setResult({
+      msg: eligibilityResult
+        ? `${inputVal.slice(0, 7)}.... is Eligible, Congrats 🎉🎉`
+        : `Unfortunately, you are not eligible for the Certificate 🥲🥹`,
+      flag: eligibilityResult,
+    });
   };
 
   return (
@@ -150,17 +149,21 @@ export default function FormSub() {
       >
         <Input
           type="text"
+          value={inputVal}
           placeholder="Address here"
           onChange={(e) => setInputVal(e.target.value)}
         />{" "}
-        <Button />
+        <Button name="Check" />
       </form>
       <br />
       <br />
       {result && (
         <div className="mx-5">
           {result.flag ? (
-            <p className="text-green-600 max-w-[650px]">{result.msg}</p>
+            <>
+              <p className="text-green-600 max-w-[650px]">{result.msg}</p>
+              <Namecollection address={inputVal} />
+            </>
           ) : (
             <p className="text-red-600 max-w-[650px]">{result.msg}</p>
           )}

@@ -1,4 +1,4 @@
-export default function Button() {
+export default function Button({ name }) {
   return (
     <div>
       <button className="custom-button" type="submit">
@@ -15,7 +15,7 @@ export default function Button() {
             fill="currentColor"
           ></path>
         </svg>
-        <span>Check</span>
+        <span>{name}</span>
       </button>
       <style>
         {`
