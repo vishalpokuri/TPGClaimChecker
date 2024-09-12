@@ -2,7 +2,7 @@ import {Eligible, connectDB} from "../../db/index";  // Adjust the import based 
 import { NextResponse } from 'next/server';
 
 // POST Request
-export const POST = async (req) => {
+export const POST = async (req: { json: () => any; }) => {
   try {
     const data = await req.json();
     console.log(data);
