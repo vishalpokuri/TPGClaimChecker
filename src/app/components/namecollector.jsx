@@ -1,6 +1,7 @@
 import { Input } from "@/components/ui/input";
 import Button from "../components/button";
 import { useState } from "react";
+import axios from "axios";
 export default function Namecollection({ className, address }) {
   const [inputVal, setInputVal] = useState("");
   const [result, setResult] = useState("");
@@ -8,12 +9,12 @@ export default function Namecollection({ className, address }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/eligible", {
+      const response = await axios("/api/eligible", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name: inputVal, address: collectedaddy }),
+        data: { name: inputVal, address: collectedaddy },
       });
 
       if (!response.ok) {

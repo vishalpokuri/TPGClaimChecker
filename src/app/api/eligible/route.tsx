@@ -2,7 +2,8 @@ import {Eligible, connectDB} from "../../db/index";  // Adjust the import based 
 import { NextResponse } from 'next/server';
 
 // POST Request
-export const POST = async (req: { json: () => any; }) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const POST = async (req: any) => {
   try {
     const data = await req.json();
     console.log(data);
