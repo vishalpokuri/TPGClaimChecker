@@ -2,7 +2,7 @@
 import React from "react";
 import FormSub from "./components/Set";
 import Header from "./components/Header";
-// import { BackgroundBeams } from "./bg";
+import { BackgroundBeams } from "./bg";
 
 import Image from "next/image";
 
@@ -27,7 +27,7 @@ function Home() {
           </div>
         </div>
       </div>
-      {/* <BackgroundBeams/> */}
+      <BackgroundBeams/>
     </>
   );
 }
