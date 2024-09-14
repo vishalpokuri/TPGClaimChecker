@@ -17,8 +17,8 @@ function Home() {
         </h1>
         <div className="flex flex-col md:flex-row items-center justify-center gap-8">
           <Image src="/images/Rustcert.png" className="w-96 max-w-full rounded-2xl" alt="Graduation" width={384} height={384} />
-          <div className="flex flex-col items-center justify-center">
-            <h2 className="text-xl font-bold text-white text-center mb-4">
+          <div className="flex flex-col items-center justify-around">
+            <h2 className="text-xl font-bold text-white text-center  mb-4">
               Enter your Solana Wallet address to check eligibility
             </h2>
             <div className="flex flex-col sm:flex-row items-center gap-4">
