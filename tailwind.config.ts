@@ -1,11 +1,10 @@
-import defaultTheme from "tailwindcss/defaultTheme";
-import colors from "tailwindcss/colors";
-import { default as flattenColorPalette } from "tailwindcss/lib/util/flattenColorPalette";
+import type { Config } from "tailwindcss";
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ["./src/**/*.{ts,tsx, js, jsx}"],
-  darkMode: ["class", "class"],
+import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette";
+
+const config: Config = {
+  content: ["./src/**/*.{ts,tsx,js,jsx}"],
+  darkMode: ["class"],
   theme: {
     extend: {
       colors: {
@@ -71,3 +70,5 @@ module.exports = {
     require("tailwindcss-animate"),
   ],
 };
+
+export default config;
