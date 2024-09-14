@@ -116,10 +116,11 @@ export default function FormSub() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (inputVal.length != 44) {
       setResult({
         msg: `Invalid Wallet Address`,
-        flag: true,
+        flag: false,
       });
       return;
     }

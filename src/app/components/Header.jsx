@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Header() {
   return (
-    <header className="m-[100px]">
+    <header className="ml-10 mt-10">
       <div className="w-auto h-auto p-8">
         <Image
           src="/images/tpgch.png"
