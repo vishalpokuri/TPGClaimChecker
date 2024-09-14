@@ -155,13 +155,16 @@ export default function FormSub() {
         />{" "}
         <Button name="Check" />
       </form>
-      <br />
-      <br />
+
       {result && (
-        <div className="mx-5">
+        <div className="items-center w-[650px]">
           {result.flag ? (
             <>
-              <p className="text-green-600 max-w-[650px]">{result.msg}</p>
+              <p className="text-green-600 max-w-[650px] text-center">
+                {result.msg}
+              </p>
+              <br />
+              <br />
               <Namecollection address={inputVal} />
             </>
           ) : (

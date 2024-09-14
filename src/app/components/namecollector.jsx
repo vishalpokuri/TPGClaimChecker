@@ -2,43 +2,42 @@ import { Input } from "@/components/ui/input";
 import Button from "../components/button";
 import { useState } from "react";
 import axios from "axios";
-export default function Namecollection({ className, address }) {
+import { Loader2 } from "lucide-react";
+export default function Namecollection({ address }) {
   const [inputVal, setInputVal] = useState("");
   const [result, setResult] = useState("");
-  const collectedaddy = address;
+  const [isLoading, setisLoading] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setisLoading(true);
     try {
-      const response = await axios("/api/eligible", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: { name: inputVal, address: collectedaddy },
+      const response = await axios.post("/api/eligible", {
+        name: inputVal,
+        address,
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to save eligible address");
-      }
-
-      const responseData = await response.json();
-      console.log("Server response: ", responseData);
+      console.log("Server response: ", response.status);
       setResult({
-        msg: "You've submitted your entry successfully",
+        msg: "You've submitted your entry successfully ✅",
         flag: true,
       });
     } catch (err) {
       console.error("Error saving eligible address:", err);
       setResult({
-        msg: "Unsuccessful attempt",
+        msg: "Unsuccessful attempt ❌",
         flag: false,
       });
+    } finally {
+      setisLoading(false);
     }
   };
   return (
     <>
-      <h1>How would you like your name on the NFT?</h1>
-      <div className={className}>
+      <h1 className="text-xl font-bold text-white text-center mb-4">
+        How would you like your name on the NFT?
+      </h1>
+      <div className="">
         <form
           onSubmit={handleSubmit}
           className=" flex flex-row items-center w-[650px]"
@@ -50,19 +49,27 @@ export default function Namecollection({ className, address }) {
             placeholder="Enter name"
             onChange={(e) => setInputVal(e.target.value)}
           />{" "}
-          <Button name="Send" />
+          <Button name="Send" disabled={isLoading} />
         </form>
         <br />
         <br />
-        {result && (
-          <div className="mx-5">
-            {result.flag ? (
-              <p className="text-green-600 max-w-[650px]">{result.msg}</p>
-            ) : (
-              <p className="text-red-600 max-w-[650px]">{result.msg}</p>
-            )}
-          </div>
-        )}
+        <div className="flex flex-col items-center w-[650px]">
+          {isLoading ? (
+            <Loader2 className="h-8 w-8 animate-spin text-white" />
+          ) : (
+            result && (
+              <p
+                className={
+                  result.flag
+                    ? "text-green-600 text-center"
+                    : "text-red-600 text-center"
+                }
+              >
+                {result.msg}
+              </p>
+            )
+          )}
+        </div>
       </div>
     </>
   );
